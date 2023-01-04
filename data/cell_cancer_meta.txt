@@ -1,0 +1,61 @@
+Cancer	Cell_line	Tissue	Tissue_code
+Adult acute myeloid leukemia	HL-60	Leukemia	LE
+Adult T acute lymphoblastic leukemia	MOLT-4	Leukemia	LE
+Amelanotic melanoma	M14	Melanoma	ME
+Amelanotic melanoma	MDA-MB-435	Melanoma	ME
+Amelanotic melanoma	LOX_IMVI	Melanoma	ME
+Anaplastic large cell lymphoma, ALK-positive	SR	Leukemia	LE
+Astrocytoma	U251	Central nervous system	CNS
+Astrocytoma	SF-268	Central nervous system	CNS
+Astrocytoma	SNB-19	Central nervous system	CNS
+Blast phase chronic myelogenous leukemia, BCR-ABL1 positive	K-562	Leukemia	LE
+Breast adenocarcinoma	MDA-MB-231	Breast	BR
+Breast adenocarcinoma	MDA-MB-468	Breast	BR
+Childhood T acute lymphoblastic leukemia	CCRF-CEM	Leukemia	LE
+Clear cell renal cell carcinoma	CAKI-1	Renal	RE
+Clear cell renal cell carcinoma	TK-10	Renal	RE
+Colon adenocarcinoma	HCC-2998	Colon	CO
+Colon adenocarcinoma	HCT-15	Colon	CO
+Colon adenocarcinoma	HT29	Colon	CO
+Colon adenocarcinoma	SW-620	Colon	CO
+Colon adenocarcinoma	COLO_205	Colon	CO
+Colon carcinoma	HCT-116	Colon	CO
+Colon carcinoma	KM12	Colon	CO
+Cutaneous melanoma	SK-MEL-5	Melanoma	ME
+Cutaneous melanoma	SK-MEL-28	Melanoma	ME
+Glioblastoma	SF-295	Central nervous system	CNS
+Glioblastoma	SNB-75	Central nervous system	CNS
+Gliosarcoma	SF-539	Central nervous system	CNS
+High grade ovarian serous adenocarcinoma	OVCAR-8	Ovarian	OV
+High grade ovarian serous adenocarcinoma	NCI_ADR-RES	Ovarian	OV
+High grade ovarian serous adenocarcinoma	OVCAR-3	Ovarian	OV
+High grade ovarian serous adenocarcinoma	OVCAR-5	Ovarian	OV
+High grade ovarian serous adenocarcinoma	OVCAR-4	Ovarian	OV
+Invasive breast carcinoma of no special type	BT-549	Breast	BR
+Invasive breast carcinoma of no special type	HS_578T	Breast	BR
+Invasive breast carcinoma of no special type	MCF7	Breast	BR
+Invasive breast carcinoma of no special type	T-47D	Breast	BR
+Lung adenocarcinoma	NCI-H23	Non-Small Cell Lung	LC
+Lung adenocarcinoma	A549	Non-Small Cell Lung	LC
+Lung adenocarcinoma	EKVX	Non-Small Cell Lung	LC
+Lung adenocarcinoma	HOP-62	Non-Small Cell Lung	LC
+Lung adenocarcinoma	NCI-H522	Non-Small Cell Lung	LC
+Lung large cell carcinoma	NCI-H460	Non-Small Cell Lung	LC
+Lung non-small cell carcinoma	HOP-92	Non-Small Cell Lung	LC
+Melanoma	SK-MEL-2	Melanoma	ME
+Melanoma	MALME-3M	Melanoma	ME
+Melanoma	UACC-62	Melanoma	ME
+Melanoma	UACC-257	Melanoma	ME
+Minimally invasive lung adenocarcinoma	NCI-H322M	Non-Small Cell Lung	LC
+Ovarian endometrioid adenocarcinoma	IGROV1	Ovarian	OV
+Ovarian serous cystadenocarcinoma	SK-OV-3	Ovarian	OV
+Papillary renal cell carcinoma	ACHN	Renal	RE
+Plasma cell myeloma	RPMI-8226	Leukemia	LE
+Pleural epithelioid mesothelioma	NCI-H226	Non-Small Cell Lung	LC
+Prostate carcinoma	DU-145	Prostate	PR
+Prostate carcinoma	PC-3	Prostate	PR
+Renal cell carcinoma	A498	Renal	RE
+Renal cell carcinoma	RXF_393	Renal	RE
+Renal cell carcinoma	UO-31	Renal	RE
+Renal cell carcinoma	X786-0	Renal	RE
+Renal cell carcinoma	SN12C	Renal	RE
