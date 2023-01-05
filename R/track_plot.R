@@ -1,5 +1,4 @@
-setwd("~/Projects/super_enhancer/se_data_portal/interface_table/")
-#library(Gviz)
+setwd("~/Projects/super_enhancer/se_data_portal/cSEAdb/")
 library(GenomicRanges)
 library(rtracklayer)
 library(RColorBrewer)
@@ -10,37 +9,13 @@ library(ggh4x)
 library(ggplot2)
 library(grid)
 
-se_ce <- read.table("results_v7/final_tables_for_function/se_region_for_plot.bed",sep="\t",header=F)
-meta_data <- read.table("results_v7/final_tables_for_function/cell_cancer_meta.txt",sep="\t",header=T)
-ce_matrix <- read.table("results_v7/final_tables_for_function/ce_signal_10p_overlap_normalized_60cell.txt",sep="\t",header=T)
-se_cell_spec <- read.table("results_v7/final_tables_for_function/se_cell_spec.txt",sep="\t",header=T)
-ce_mix_model <- read.table("results_v7/ce_mixture_new_custom_from_0.txt",sep="\t",header=T)
-ce_maxcover <- read.table("results_v7/ce_keep_weight_cell.txt",sep="\t",header=T)
-
-
-# test mix model
-model_new <- ce_mix_model[which(ce_mix_model$se_name=="chr1_154931426_155027337"),]
-model_old <- ce_mix_model_old[which(ce_mix_model_old$se_name=="chr1_154931426_155027337"),]
-sing_1 <- ce_matrix[which(ce_matrix$se_name=="chr1_154931426_155027337"),]
-cell_spec_1 <- se_cell_spec[which(se_cell_spec$se_name=="chr1_154931426_155027337"),]
-
-new_table_1 <- rbind(sing_1[6,-c(61,62)],model_old[6,-c(61,62)],model_new[6,-c(61,62)])
-
-model_new <- ce_mix_model[which(ce_mix_model$se_name=="chr13_113177058_113210511"),]
-model_old <- ce_mix_model_old[which(ce_mix_model_old$se_name=="chr13_113177058_113210511"),]
-sing_1 <- ce_matrix[which(ce_matrix$se_name=="chr13_113177058_113210511"),]
-cell_spec_1 <- se_cell_spec[which(se_cell_spec$se_name=="chr13_113177058_113210511"),]
+se_db <- readRDS("data/cSEAdb.rds")
 
 #------------------------------------------------------------------------
 # create bigwig track plot df for ggplot
 #------------------------------------------------------------------------
 
-# create cell list to loop
-cell_list <- unique(meta_data$Cell_line)
-cell_list[which(cell_list=="X786-0")] <- "786-0"
-
 se_region <- "chr5_151039481_151102681"
-se_region <- "chr1_109927087_110035367"
 
 # examples: chr5_151039481_151102681, chr1_109927087_110035367, chr1_154931426_155027337, chr13_113177058_113210511,
 # double check: se_region <- "chr13_113177058_113210511"
