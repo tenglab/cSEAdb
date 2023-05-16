@@ -32,17 +32,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-Super enhancers (SEs) are broad enhancer domains usually containing multiple constituent 
-enhancers that hold elevated activities in gene regulation. Disruption in one or more 
-constituent enhancers causes aberrant SE activities that lead to gene dysregulation in 
-diseases. To quantify SE aberrations, differential analysis is performed to compare SE
-activities between cell conditions. The state-of-art strategy in estimating differential 
-SEs relies on overall activities and neglect the changes in length and structure of SEs. 
-DASE uses a weighted spline model to identify differential SEs between two conditions by 
-accounting for the combinatorial effects of constituent enhancers weighted with their 
-activities and locations (internal dynamics). In addition to overall changes, our method 
-finds four novel types (shortened, shifted, hollowed and other complex scenarios) of 
-differential SEs pointing to the structural differences within SEs.
+Super enhancers (SEs) have been found as critical regulators in human cancers. Previous studies reported that, instead of treating each SE as a single unit, considering the dynamics of their internal components (i.e., constituent enhancers or CEs), provides better characterization of SE alterations. Here, we extend these analysis to pan-cancer datasets to identify cancer-specific SEs by fully utilizing SE internal dynamics and computationally modeling active statuses of enhancers. 
 
 # Getting Started
 
@@ -52,45 +42,24 @@ Load the package in R
 library(cSEAdb)
 ```
 
-# Preparing Inputs
-
-cSEAdb requires the following input files:
-
-  1. Enhancer BED file: a merged enhancer BED file including the enhancers (e.g. H3K27Ac sequencing peaks)
-     from all compared samples.
-  1. SE BED file: a merged SE BED file including the SE regions from all compared samples.
-  1. Coverage files: either the path of BAM/BigWig files for each condition and replicate, or a sequencing 
-     count table for all enhancers across conditions and replicates.
-
-Below are the examples of the enhancer and SE BED files, following the UCSC definition 
-(https://genome.ucsc.edu/FAQ/FAQformat.html).
-
-### *Enhancer BED file*
-
-The enhancer BED file can be of any table formats as long as the first 6 columns contain
-the information of "chromosome","start","end","name","score" and "strand". Here is an example of 
-BED files with only 6 columns.
-
-```{r enhancer_data}
-# load enhancer BED file
-enhancer_path <- system.file("extdata","enhancer.bed",package="DASE")
-enhancer_region <- read.table(enhancer_path,sep="\t",header=F)
-head(enhancer_region)
+Read cSEAdb RDS object
+```{r library}
+cSEAdb <- readRDS("../data/cSEAdb.rds")
 ```
 
-### *SE BED file*
+# Tables of cSEAdb object
 
-The SE BED file can be of any formats as long as the first 6 columns contain the information of
-"chromosome","start","end","name","score",and "strand". Here is an example of BED files with only 6 columns.
+cSEAdb includes the following files:
 
-```{r SE_data}
-# load SE BED file
-se_path <- system.file("extdata","SE.bed",package="DASE")
-se_region <- read.table(se_path,sep="\t",header=F)
-head(se_region)
-```
+  1. se_bed: Super-enhancer BED file, a merged SE BED file from 60 cell lines.
+  1. ce_bed: a merged constituent enhancer BED file from 60 cell lines.
+  1. cell_cancer_meta: metadata of cell line and cancers of 60 cell lines.
+  1. ce_signal
+  1. ce_mixture_model_cell
+  1. se_specificity
+  1. gene_promotor
 
-# Basic Usage of _DASE_
+# Query with _cSEAdb_
 
 In this section, we use DASE to find differential SEs by comparing SE profiles on **chromosome 21** between
 two cancer cell lines (K562 and MCF7). Here, we focus on the basic usage of running DASE with different
@@ -99,7 +68,20 @@ to determine a significant threshold to aid the defining of different SE categor
 such as blacklist region removal and running without permutation can be found later in the "Additional 
 Options" section.
 
-### *Run DASE with BAM or BigWig coverage files*
+### *Query _cSEAdb_ with SE regions*
+
+### *Query _cSEAdb_ with gene names*
+
+### *Query _cSEAdb_ with cell lines (only for the 60 cell line in this study)*
+
+### *Query _cSEAdb_ with cancers (only for the 28 cancer types in this study)*
+
+
+
+# Generate signal track plot
+
+# Generate chromosome maps
+
 
 This section demonstrates _DASE_ with BAM or BigWig input files. The BAM or BigWig files are used to estimate 
 the reads counts of enhancers in different samples. _DASE_ uses *featureCounts* to count the enhancer abundance 
