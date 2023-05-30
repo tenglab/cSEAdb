@@ -72,18 +72,18 @@ create_gviz_tracks <- function(bw_gr_list,se_spec_table,cell="specific",plot_reg
   # higlight specific gain or loss ce region
   #-------------------------
   spec_cell_table <- se_spec_table[which(se_spec_table$object_type=="cell" & se_spec_table$number_spec_ce!=0),]
-  ce_hl_2 <- separate(unique(spec_cell_table[,c("spec_ce","spec_object","specifity")]),
+  ce_hl_2 <- separate(unique(spec_cell_table[,c("spec_ce","spec_object","specificity")]),
                       spec_ce,c("chr","start","end"),remove=F)
 
   se_hl <- separate(unique(spec_cell_table[,c("se_name","query")]),
                     se_name,c("chr","start","end"),remove=F)
-  # cell have gain ce
-  ce_hl_gain <- ce_hl_2[which(ce_hl_2$specifity=="gain"),]
+  # cell have active ce
+  ce_hl_gain <- ce_hl_2[which(ce_hl_2$specificity=="active"),]
   spec_gain <- paste(ce_hl_gain$spec_object,collapse=",")
   spec_gain <- unique(unlist(strsplit(spec_gain,",")))
 
-  # cell have loss ce
-  ce_hl_loss <- ce_hl_2[which(ce_hl_2$specifity=="loss"),]
+  # cell have inactive ce
+  ce_hl_loss <- ce_hl_2[which(ce_hl_2$specificity=="inactive"),]
   spec_loss <- paste(ce_hl_loss$spec_object,collapse=",")
   spec_loss <- unique(unlist(strsplit(spec_loss,",")))
 

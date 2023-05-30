@@ -43,7 +43,7 @@ hit_se <- search_db(c("chr1_121000_123250","chr5_111111_222222"),query_type="se_
 hit_se <- search_db("se_query_list.bed",query_type="se_bed")
 
 # search with gene symbol
-hit_se <- search_db(c("MYC","FOXA2"),query_type="se_bed")
+hit_se <- search_db(c("MYC","FOXA2"),query_type="gene")
 
 # search with cell name
 hit_se <- search_db(c("HL-60","MCF7"),query_type="cell")
