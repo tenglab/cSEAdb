@@ -6,7 +6,7 @@ Authors@R:
 		   family = "Liu",
 		   role = c("aut", "cre"),
 		   email = "Xiang.Liu@moffitt.org",
-           comment = c(ORCID = "0000-0002-7081-2694")
+           comment = c(ORCID = "0000-0002-7081-2694"))
 Description: This package contains the cSEAdb database, and some tools to query through this database.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
