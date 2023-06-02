@@ -51,7 +51,7 @@ create_bw_gr<- function (plot_region,bw_path,se_spec_table) {
   for (a in 1:length(bw_path)) {
     #print(a)
     in_path <- bw_path[a]
-    cell <- gsub("_.*.bw|_.*.bigwig","",basename(in_path))
+    cell <- gsub("_normalized.bw|_dummy.bw","",basename(in_path))
     bw_gr_tmp <- import(in_path, format="BigWig",
                         which=plot_gr,
                         as="GRanges")

@@ -40,7 +40,7 @@ Load the package in R
 
 ```{r library}
 library(cSEAdb)
-library(GenomicRanges)
+#library(GenomicRanges)
 ```
 
 # Read cSEAdb RDS object
@@ -182,7 +182,7 @@ The plot object includes the following files:
   1. plot_region: regions to plot.
   1. axistrack: genome axis track indicate locations.
   
-Then users can customize which track to plot using gviz package.
+Then users can customize which track to plot using Gviz package.
 
 ## plot all tracks
 ```{r library}
@@ -208,15 +208,16 @@ plotTracks(c(plot_object$htrack,
 
 # Generate chromosome maps
 
-This section demonstrates how to generate chromosome maps with the information extracted from _cSEAdb_. Here we use A549 as an example.
+This section demonstrates how to generate chromosome maps with the information extracted from _cSEAdb_. _cSEAdb_ includes cell and cancer RDS object for chromosome plots. Here we use A549 as an example.
 
 ```{r library}
 # load tools
 library(chromoMap)
 
 # read cell spec chromosome file and chromosome size file
-cell_spec <- readRDS("../data/cell_spec_for_chr_plot.rds")
-chrom_size <- read.table("../data/hg38_chrom_loc_w_centromere.txt",sep="\t",header=F)
+cell_spec <- readRDS(system.file("data","cell_spec_for_chr_plot.rds",package="cSEAdb"))
+chrom_size <- read.table(system.file("extdata","hg38_chrom_loc_w_centromere.txt",package="cSEAdb"),
+                         sep="\t",header=F)
 head(chrom_size)
 
 # Extract specificity information with A549
