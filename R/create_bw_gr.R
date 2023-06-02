@@ -16,6 +16,7 @@
 #' @import rtracklayer
 #' @import tidyr
 #'
+#' @export
 #' @examples
 #' # bigwig file path
 #' bw_file_path <- c("merged_normalized_bw/786-0_normalized.bw","merged_normalized_bw/A549_normalized.bw")

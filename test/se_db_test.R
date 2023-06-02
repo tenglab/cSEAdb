@@ -15,6 +15,7 @@ devtools::install_github("https://github.com/tenglab/cSEAdb.git")
 # load database
 cSEAdb <- readRDS("data/cSEAdb.rds")
 
+library(cSEAdb)
 #-----------------------------------
 # test search_db
 #-----------------------------------

@@ -30,6 +30,7 @@
 #' @import data.table
 #' @import TxDb.Hsapiens.UCSC.hg38.knownGene
 #'
+#' @export
 #' @examples
 #' # region of interests
 #' plot_region <- "chr1_1109053_1176954"
