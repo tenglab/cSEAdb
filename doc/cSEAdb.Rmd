@@ -40,6 +40,7 @@ Load the package in R
 
 ```{r library}
 library(cSEAdb)
+library(GenomicRanges)
 ```
 
 # Read cSEAdb RDS object
@@ -74,7 +75,7 @@ In this section, we extract specificity information of SE and CE with search_db 
 
 ### *Query _cSEAdb_ with SE regions*
 
-```{r library}
+```{r Query SE regions}
 # regions
 hits_1 <- search_db(c("chr1_100584859_100673000","chr1_112388326_112392055"),
                      query_type="se_region",se_db=cSEAdb)
@@ -89,7 +90,7 @@ head(hits_2)
 
 ### *Query _cSEAdb_ with gene names*
 
-```{r library}
+```{r Query with gene names}
 hits_gene <- search_db(query=c("MYC","FOXA2"),
                         query_type="gene",se_db=cSEAdb)
 head(hits_gene)
@@ -97,7 +98,7 @@ head(hits_gene)
 
 ### *Query _cSEAdb_ with cell lines (only for the 60 cell line in this study)*
 
-```{r library}
+```{r Query with cell lines}
 # cell line names used in this study
 cell_name <- unique(cSEAdb$cell_cancer_meta$Cell_line)
 head(cell_name)
@@ -110,7 +111,7 @@ head(hits_cell)
 
 ### *Query _cSEAdb_ with cancers (only for the 28 cancer types in this study)*
 
-```{r library}
+```{r Query with cancer names}
 # cancer names used in this study
 cancer_name <- unique(cSEAdb$cell_cancer_meta$Cell_line)
 head(cancer_name)
