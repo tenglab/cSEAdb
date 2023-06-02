@@ -40,7 +40,6 @@ Load the package in R
 
 ```{r library}
 library(cSEAdb)
-#library(GenomicRanges)
 ```
 
 # Read cSEAdb RDS object
@@ -143,7 +142,7 @@ head(bw_path)
 ```
 Once we have the bigwig path, we can create a Grange object with region like to plot.
 
-```{r create plot dataframe}
+```{r create bw_gr object}
 # Define a plot region
 plot_region <- "chr5:1156819-1178981"
 
@@ -160,7 +159,10 @@ bw_gr <- create_bw_gr(plot_region,c(bw_path,usr_bigwig),se_spec_table=search_db_
 
 
 After generate the bigwig Granges, we can create gnomic tracks. We can chose any cell lines provided in this database. Here we only generate the cells which have specificity in this region. We also add some extra cells (A549, MCF7) and user's own samples. 
-```{r create plot dataframe}
+```{r create tracks}
+# import hg38 genomes for gene tracks
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+
 # Create plot object for gviz package
 plot_object <- create_gviz_tracks(bw_gr_list=bw_gr$bw_gr,
                                cell="specific,A549,MCF7,example_signal.bw",
@@ -185,7 +187,7 @@ The plot object includes the following files:
 Then users can customize which track to plot using Gviz package.
 
 ## plot all tracks
-```{r library}
+```{r track1}
 # with the plot object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
              plot_object$atrack_ce,
@@ -197,7 +199,7 @@ plotTracks(c(plot_object$htrack,
 
 ```
 ## Only plot major tracks
-```{r library}
+```{r track2}
 # with the plot object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
              plot_object$atrack_ce,
@@ -210,7 +212,7 @@ plotTracks(c(plot_object$htrack,
 
 This section demonstrates how to generate chromosome maps with the information extracted from _cSEAdb_. _cSEAdb_ includes cell and cancer RDS object for chromosome plots. Here we use A549 as an example.
 
-```{r library}
+```{r chromosome maps}
 # load tools
 library(chromoMap)
 
