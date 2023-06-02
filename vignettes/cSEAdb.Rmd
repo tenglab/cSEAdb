@@ -13,6 +13,7 @@ output:
   pdf_document:
     toc: yes
 graphics: yes
+always_allow_html: yes
 vignette: |
   %\VignetteIndexEntry{cSEAdb user's guide} %\VignettePackage{cSEAdb} %\VignetteEncoding{UTF-8} %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -195,7 +196,7 @@ Then users can customize which track to plot using Gviz package.
 
 ## Plot all tracks
 
-```{r track1}
+```{r track1, fig.height=20, fig.width=15}
 # with the plot object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
              plot_object$atrack_ce,
@@ -203,18 +204,20 @@ plotTracks(c(plot_object$htrack,
              plot_object$atrack_query,
              plot_object$axistrack,
              plot_object$gtrack),
-           cex.title = 0.4)
+           size=10,
+           cex.title = 0.8)
 
 ```
 
 ## Without annotation tracks
 
-```{r track2}
+```{r track2, fig.height=20, fig.width=15}
 # with the plot object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
              plot_object$atrack_ce,
              plot_object$atrack_se),
-           cex.title = 0.4)
+           size=10,
+           cex.title = 1)
 
 ```
 

@@ -62,9 +62,9 @@ search_db_table <- search_db(plot_region,
 usr_bigwig <- "inst/extdata/dummy_coverage.bw"
 bw_gr <- create_bw_gr(plot_region,c(bigWigs$V1),se_spec_table=search_db_table)
 
-for (i in 1:60) {
-  export.bw(bw_gr$bw_gr[[i]],paste0("inst/extdata/example_bw_2/",names(bw_gr$bw_gr)[[i]],"_dummy.bw"))
-}
+# for (i in 1:60) {
+#   export.bw(bw_gr$bw_gr[[i]],paste0("inst/extdata/example_bw_2/",names(bw_gr$bw_gr)[[i]],"_dummy.bw"))
+# }
 
 
 
@@ -84,7 +84,8 @@ plotTracks(c(plot_out_2$htrack,
              plot_out_2$atrack_query,
              plot_out_2$axistrack,
              plot_out_2$gtrack),
-           cex.title = 0.4)
+           size=5,
+           cex.title = 0.5)
 dev.off()
 ################
 
