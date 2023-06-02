@@ -5,17 +5,16 @@ author: |
   | Mingxiang Teng <mingxiang.teng@moffitt.org>
   | Department of Biostatistics and Bioinformatics
   | Moffit Cancer Center, Tampa, FL, USA
-date: "`r Sys.Date()`"  
-output: 
-  pdf_document: 
-    toc: true
-  #rmarkdown::html_vignette:
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    df_print: paged
+  pdf_document:
+    toc: yes
 graphics: yes
-vignette: >
-  %\VignetteIndexEntry{cSEAdb user's guide}
-  %\VignettePackage{cSEAdb}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+vignette: |
+  %\VignetteIndexEntry{cSEAdb user's guide} %\VignettePackage{cSEAdb} %\VignetteEncoding{UTF-8} %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r, echo=FALSE, include=FALSE}
@@ -160,10 +159,11 @@ bw_gr <- create_bw_gr(plot_region,c(bw_path,usr_bigwig),se_spec_table=search_db_
 
 After generate the bigwig Granges, we can create gnomic tracks. We can chose any cell lines provided in this database. Here we only generate the cells which have specificity in this region. We also add some extra cells (A549, MCF7) and user's own samples. 
 ```{r create tracks}
-# import hg38 genomes for gene tracks
+
+# add hg38 genomes for gene tracks (optional)
 library(TxDb.Hsapiens.UCSC.hg38.knownGene)
 
-# Create plot object for gviz package
+# Create plot object for gviz package with gene tracks
 plot_object <- create_gviz_tracks(bw_gr_list=bw_gr$bw_gr,
                                cell="specific,A549,MCF7,example_signal.bw",
                                se_spec_table=search_db_table,
@@ -198,7 +198,8 @@ plotTracks(c(plot_object$htrack,
            cex.title = 0.4)
 
 ```
-## Only plot major tracks
+
+## Don't including annotation tracks
 ```{r track2}
 # with the plot object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
