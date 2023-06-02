@@ -43,8 +43,9 @@ library(cSEAdb)
 ```
 
 # Read cSEAdb RDS object
-```{r library}
-cSEAdb <- readRDS("../data/cSEAdb.rds")
+```{r readRDS}
+cSEAdb <- readRDS(system.file("data","cSEAdb.rds",package="cSEAdb"))
+names(cSEAdb)
 ```
 
 # Tables of cSEAdb object

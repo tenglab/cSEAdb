@@ -12,11 +12,11 @@ License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 URL: https://github.com/tenglab/cSEAdb
 Depends:
-		R (>= 4.2.1)
-Imports:
+		R (>= 4.2.1),
 		GenomicRanges (>= 1.48.0),
 		Gviz (>= 1.40.1),
-		rtracklayer (>= 1.56.1),
+		rtracklayer (>= 1.56.1)
+Imports:
 		tidyr (>= 1.2.0),
 		data.table (>= 1.14.2),
 		TxDb.Hsapiens.UCSC.hg38.knownGene (>= 3.15.0)
