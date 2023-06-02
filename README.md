@@ -25,6 +25,10 @@ First load cSEAdb,
 ```R
 library(cSEAdb)
 ```
+Then, follow the [**User's Guide**](https://github.com/tenglab/cSEAdb/blob/master/vignettes/cSEAdb.html) 
+to load cSEAdb. In the guide, we detail how to query through cSEAdb and to visualize regions.
+
+The users are also encouraged to refer to the help pages of R functions in this package. 
 
 ## Help
 Feel free to leave any questions and bugs at [GitHub issues](https://github.com/tenglab/cSEAdb/issues).
