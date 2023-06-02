@@ -82,8 +82,8 @@ hits_1 <- search_db(c("chr1_100584859_100673000","chr1_112388326_112392055"),
 head(hits_1)
 
 # bed file
-hits_2 <- search_db("../data/se_query_example.bed",
-                     query_type="se_bed",se_db=cSEAdb)
+bed_file <- system.file("extdata","se_query_example.bed",package="cSEAdb")
+hits_2 <- search_db(bed_file,query_type="se_bed",se_db=cSEAdb)
 
 head(hits_2)
 ```
@@ -104,7 +104,7 @@ cell_name <- unique(cSEAdb$cell_cancer_meta$Cell_line)
 head(cell_name)
 
 # search cSEAdb with cell name
-hits_cell <- search_db(c("HL-60"),
+hits_cell <- search_db(cell_name[c(1,2)],
                        query_type="cell",se_db=cSEAdb)
 head(hits_cell)
 ```
@@ -117,7 +117,7 @@ cancer_name <- unique(cSEAdb$cell_cancer_meta$Cell_line)
 head(cancer_name)
 
 # search cSEAdb with cancer names
-hits_cancer <- search_db(query=c("Lung non small cell carcinoma"),
+hits_cancer <- search_db(query=cancer_name[c(1,2)],
                        query_type="cancer",cSEAdb)
 head(hits_cancer)
 ```
@@ -128,19 +128,21 @@ head(hits_cancer)
 
 This section demostrates how to generate track plots with a genomic regions.
 
-```{r library}
+```{r download bigwig files of 60 cell lines}
 # Download the normalized bigwig file of 60 cell lines
 # Download link are located in data/bw_all_plinks.txt file
-bw_download_link <- read.table("../data/bw_all_plinks.txt",sep="\t",header=F)
+bw_links <- system.file("extdata","bw_all_plinks.txt",package="cSEAdb")
+bw_download_link <- read.table(bw_links,sep="\t",header=F)
 head(bw_download_link)
 
 # Create a bigwig list with the path of bigwig files
-# Assume the path of downloaded bigwig files are in file "bw_path.txt"
-bigWigs  <- read.table("../../bw_path.txt",sep="\t",header=F)
+# Here is a example of path list of downloaded bigwig files
+bw_path <- system.file("extdata","dummy_bw_path",package="cSEAdb")
+bigWigs  <- read.table(bw_path,sep="\t",header=F)
 head(bigWigs)
 ```
 
-```{r library}
+```{r create plot dataframe}
 # Define a plot region
 plot_region <- "chr5:1156819-1178981"
 
@@ -149,11 +151,24 @@ search_db_table <- search_db(plot_region,
                              query_type="se_region",se_db=cSEAdb)
 
 # You can add your own bigwig files
-usr_bigwig <- "../data/example_signal.bw"
+usr_bigwig <- system.file("extdata","example_signal.bw",package="cSEAdb")
 
+bigWigs <- read.table("../../bw_path.txt",sep="\t",header=F)
 # Create bigwig gr object with function create_bw_gr
 bw_gr <- create_bw_gr(plot_region,c(bigWigs$V1,usr_bigwig),se_spec_table=search_db_table)
+```
 
+```{r create plot dataframe}
+names_gr <- names(bw_gr$bw_gr)
+for (i in 1:length(names_gr)) {
+  export.bw(bw_gr$bw_gr[[i]],paste0("../inst/extdata/",names_gr[i],"_dummy.bw"))
+}
+```
+
+
+
+After generate the bigwig Granges, we can create gnomic tracks. We can chose any cell lines provided in this database. Here we only generate the cells which have specificity in this region. We also add some extra cells (A549, MCF7) and user's own samples. 
+```{r create plot dataframe}
 # Create plot object for gviz package
 plot_object <- create_gviz_tracks(bw_gr_list=bw_gr$bw_gr,
                                cell="specific,A549,MCF7,example_signal.bw",
