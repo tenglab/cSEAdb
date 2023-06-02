@@ -32,6 +32,13 @@ knitr::opts_chunk$set(
 # Introduction
 Super enhancers (SE) have been found with cancer-specific gene regulation in human cancers. Recent studies reported the importance of understanding the cooperation and function of their internal components, i.e., the constituent enhancers (CE). However, there are no pan-cancer studies to identify cancer-specific SE signatures at the constituent level. Here, we report fingerprint SE signatures for 28 cancer types in the NCI-60 cell panel by implementing a mixture model to automatically discriminate active CEs from inactive CEs. This R package cSEAdb was built to facilitate the query, exploration, and visualization of the fingerprint SEs in NCI-60 cell lines.
 
+# Install package
+
+Install _cSEAdb_ package via _devtools_.
+```{r install}
+library(devtools)
+devtools::install_github("https://github.com/tenglab/cSEAdb.git")
+```
 
 # Getting Started
 
@@ -42,6 +49,7 @@ library(cSEAdb)
 ```
 
 # Read cSEAdb RDS object
+
 ```{r readRDS}
 cSEAdb <- readRDS(system.file("data","cSEAdb.rds",package="cSEAdb"))
 names(cSEAdb)
@@ -120,8 +128,6 @@ hits_cancer <- search_db(query=cancer_name[c(1,2)],
 head(hits_cancer)
 ```
 
-
-
 # Generate signal track plot
 
 This section demostrates how to generate track plots with a genomic regions.
@@ -139,6 +145,7 @@ bw_dir <- system.file("extdata","example_bw",package="cSEAdb")
 bw_path  <- list.files(bw_dir,full.names = T)
 head(bw_path)
 ```
+
 Once we have the bigwig path, we can create a Grange object with region like to plot.
 
 ```{r create bw_gr object}
@@ -156,8 +163,8 @@ usr_bigwig <- system.file("extdata","example_signal.bw",package="cSEAdb")
 bw_gr <- create_bw_gr(plot_region,c(bw_path,usr_bigwig),se_spec_table=search_db_table)
 ```
 
-
 After generate the bigwig Granges, we can create gnomic tracks. We can chose any cell lines provided in this database. Here we only generate the cells which have specificity in this region. We also add some extra cells (A549, MCF7) and user's own samples. 
+
 ```{r create tracks}
 
 # add hg38 genomes for gene tracks (optional)
@@ -186,7 +193,8 @@ The plot object includes the following files:
   
 Then users can customize which track to plot using Gviz package.
 
-## plot all tracks
+## Plot all tracks
+
 ```{r track1}
 # with the plot object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
@@ -199,7 +207,8 @@ plotTracks(c(plot_object$htrack,
 
 ```
 
-## Don't including annotation tracks
+## Without annotation tracks
+
 ```{r track2}
 # with the plot object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
