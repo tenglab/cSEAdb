@@ -137,10 +137,11 @@ head(bw_download_link)
 
 # Create a bigwig list with the path of bigwig files
 # Here is a example of path list of downloaded bigwig files
-bw_path <- system.file("extdata","dummy_bw_path",package="cSEAdb")
-bigWigs  <- read.table(bw_path,sep="\t",header=F)
-head(bigWigs)
+bw_dir <- system.file("extdata","example_bw",package="cSEAdb")
+bw_path  <- list.files(bw_dir,full.names = T)
+head(bw_path)
 ```
+Once we have the bigwig path, we can create a Grange object with region like to plot.
 
 ```{r create plot dataframe}
 # Define a plot region
@@ -153,18 +154,9 @@ search_db_table <- search_db(plot_region,
 # You can add your own bigwig files
 usr_bigwig <- system.file("extdata","example_signal.bw",package="cSEAdb")
 
-bigWigs <- read.table("../../bw_path.txt",sep="\t",header=F)
 # Create bigwig gr object with function create_bw_gr
-bw_gr <- create_bw_gr(plot_region,c(bigWigs$V1,usr_bigwig),se_spec_table=search_db_table)
+bw_gr <- create_bw_gr(plot_region,c(bw_path,usr_bigwig),se_spec_table=search_db_table)
 ```
-
-```{r create plot dataframe}
-names_gr <- names(bw_gr$bw_gr)
-for (i in 1:length(names_gr)) {
-  export.bw(bw_gr$bw_gr[[i]],paste0("../inst/extdata/",names_gr[i],"_dummy.bw"))
-}
-```
-
 
 
 After generate the bigwig Granges, we can create gnomic tracks. We can chose any cell lines provided in this database. Here we only generate the cells which have specificity in this region. We also add some extra cells (A549, MCF7) and user's own samples. 

@@ -9,6 +9,9 @@ setwd("~/Projects/super_enhancer/se_data_portal/cSEAdb/")
 devtools::document()
 devtools::load_all()
 
+library(devtools)
+devtools::install_github("https://github.com/tenglab/cSEAdb.git")
+
 # load database
 cSEAdb <- readRDS("data/cSEAdb.rds")
 
