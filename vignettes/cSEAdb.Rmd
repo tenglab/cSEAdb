@@ -141,7 +141,7 @@ head(bw_download_link)
 
 # Create a bigwig list with the path of bigwig files
 # Here is a example of path list of downloaded bigwig files
-bw_dir <- system.file("extdata","example_bw_2",package="cSEAdb")
+bw_dir <- system.file("extdata","example_bw",package="cSEAdb")
 bw_path  <- list.files(bw_dir,full.names = T)
 head(bw_path)
 ```
@@ -150,9 +150,7 @@ Once we have the bigwig path, we can create a Grange object with region like to 
 
 ```{r create bw_gr object}
 # Define a plot region
-#plot_region <- "chr5:1156819-1178981"
-
-plot_region <- "chr1:145975000-146055000"
+plot_region <- "chr1:1156819-1178981"
 
 # Extract cSEAdb information
 search_db_table <- search_db(plot_region,

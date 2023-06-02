@@ -54,18 +54,27 @@ bigWigs  <- read.table("../bw_path.txt",sep="\t",header=F)
 #test region "chr1:1156819-1178981","chr1_100574859_101152255"
 
 ################
-plot_region <- "chr5:1156819-1178981"
+#plot_region <- "chr5:1156819-1178981"
+plot_region <- "chr1:1156819-1178981"
 search_db_table <- search_db(plot_region,
                              query_type="se_region",cSEAdb)
 
 usr_bigwig <- "inst/extdata/dummy_coverage.bw"
-bw_gr <- create_bw_gr(plot_region,c(bigWigs$V1,usr_bigwig),se_spec_table=search_db_table)
+bw_gr <- create_bw_gr(plot_region,c(bigWigs$V1),se_spec_table=search_db_table)
+
+for (i in 1:60) {
+  export.bw(bw_gr$bw_gr[[i]],paste0("inst/extdata/example_bw_2/",names(bw_gr$bw_gr)[[i]],"_dummy.bw"))
+}
+
+
 
 plot_out_2 <- create_gviz_tracks(bw_gr_list=bw_gr$bw_gr,
-                               cell="specific,A549,MCF7,dummy_coverage.bw",
+                               cell="specific,A549,MCF7",
                                se_spec_table=search_db_table,
-                               plot_region=plot_region,
-                               txdb=TxDb.Hsapiens.UCSC.hg38.knownGene)
+                               plot_region=plot_region)
+                               #txdb=TxDb.Hsapiens.UCSC.hg38.knownGene)
+
+
 
 pdf("test/test.pdf",width = 6,
     height = 10)
