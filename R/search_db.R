@@ -27,6 +27,7 @@
 #' A list of SE regions which specific in "cancer" and "cell" within the tissue will return.
 #'
 #' @import tidyr
+#' @import GenomicRanges
 #'
 #' @export
 #' @examples

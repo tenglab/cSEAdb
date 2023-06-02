@@ -1,12 +1,30 @@
 Package: cSEAdb
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Tools to query cSEAdb database
+Version: 0.1.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person(given = "Xiang", 
+		   family = "Liu",
+		   role = c("aut", "cre"),
+		   email = "Xiang.Liu@moffitt.org",
+           comment = c(ORCID = "0000-0002-7081-2694")
+Description: This package contains the cSEAdb database, and some tools to query through this database.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
+URL: https://github.com/tenglab/cSEAdb
+Depends:
+		R (>= 4.2.1)
+Imports:
+		GenomicRanges (>= 1.48.0),
+		Gviz (>= 1.40.1),
+		rtracklayer (>= 1.56.1),
+		tidyr (>= 1.2.0),
+		data.table (>= 1.14.2),
+		TxDb.Hsapiens.UCSC.hg38.knownGene (>= 3.15.0)
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
+Suggests:
+	rmarkdown,
+	knitr
+VignetteBuilder: Knitr
