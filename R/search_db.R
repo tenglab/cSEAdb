@@ -17,14 +17,8 @@
 #' @param se_db the cSEAdb object loaded from the package
 #'
 #' @return
-#' if query_type is "se_region" or "se_bed":
 #' A list of SE regions and there cell and cancer specificity will return.
 #'
-#' if query_type is "cancer" or "cell":
-#' A list of SE regions which only specific in "cancer" or "cell" will return.
-#'
-#' if query_type is "tissue":
-#' A list of SE regions which specific in "cancer" and "cell" within the tissue will return.
 #'
 #' @import tidyr
 #' @import GenomicRanges

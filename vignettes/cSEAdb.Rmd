@@ -152,7 +152,7 @@ First, the normalized bigwig files should be downloaded to local computer from o
 # Download links are located in data/bw_all_plinks.txt file
 bw_links <- system.file("extdata","bw_all_plinks.txt",package="cSEAdb")
 bw_download_link <- read.table(bw_links,sep="\t",header=F)
-head(bw_download_link)
+head(bw_download_link$V1)
 # Create a bigwig list using the path of bigwig files
 # Here is an example of path list for downloaded bigwig files
 bw_dir <- system.file("extdata","example_bw",package="cSEAdb")
