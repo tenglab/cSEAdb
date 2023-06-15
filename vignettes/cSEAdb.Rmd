@@ -1,4 +1,4 @@
----
+A---
 title: "_cSEAdb_ User's Guide"
 author: |
   | Xiang Liu <xiang.liu@moffitt.org>
@@ -31,7 +31,10 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
-Super enhancers (SE) have been found with cancer-specific gene regulation in human cancers. Recent studies reported the importance of understanding the cooperation and function of their internal components, i.e., the constituent enhancers (CE). However, there are no pan-cancer studies to identify cancer-specific SE signatures at the constituent level. Here, we report fingerprint SE signatures for 28 cancer types in the NCI-60 cell panel by implementing a mixture model to automatically discriminate active CEs from inactive CEs. This R package cSEAdb was built to facilitate the query, exploration, and visualization of the fingerprint SEs in NCI-60 cell lines.
+Super enhancers (SE) have been found with cancer-specific gene regulation in human cancers.
+Recent studies reported the importance of understanding the cooperation and function of
+their internal components, i.e., the constituent enhancers (CE).  Here, we report fingerprint
+SE signatures at the constituent enhancer level for 28 cancer types in the NCI-60 cell panel. 
 
 # Install package
 
@@ -43,13 +46,16 @@ devtools::install_github("https://github.com/tenglab/cSEAdb.git")
 
 # Getting Started
 
-Load the package in R
+Load the package in R.
 
 ```{r library}
 library(cSEAdb)
 ```
 
 # Read cSEAdb RDS object
+
+We document SE signatures in a RDS obeject for query, exploration and visualization. These signatures
+were pre-calcuated based on our computational algorithms detailed in the manuscript.
 
 ```{r readRDS}
 cSEAdb <- readRDS(system.file("data","cSEAdb.rds",package="cSEAdb"))
@@ -58,37 +64,39 @@ names(cSEAdb)
 
 # Tables of cSEAdb object
 
-cSEAdb includes the following files:
+cSEAdb contains the following files:
 
-  1. se_specificity: main fingerprint file including SE and CE cell and cancer specificity. Meaning of each columns are as follow:
+  1. se_specificity: main fingerprint file including specific SEs and CEs across cancers and cancer cell lines.
+  The file includes the following columns:
+  
     + se_name: SE names (chr_start_end).
-    + number_spec_ce: number of specific CEs each SE have.
-    + number_spec_object: number of cell (cancer) which each CE are specific.
-    + spec_ce: CEs which have cell or cancer specificity.
-    + spec_object: cell line for cell-specific; cancer name for cancer-specific.
-    + specificity: cell(cancer) specificity of each CE; active, inactive or non-specific.
-    + object_type: cell-specific or cancer-specific.
-  1. se_bed: Super-enhancer BED file, a merged SE BED file from 60 cell lines.
-  1. ce_bed: a merged constituent enhancer (CE) BED file from 60 cell lines.
-  1. cell_cancer_meta: metadata of cell line and cancers of 60 cell lines.
-  1. ce_signal: normalized coverage signal of all CEs.
+    + number_spec_ce: number of specific CEs for each SE.
+    + number_spec_object: number of cells (cancers) of which the CE is specific.
+    + spec_ce: CEs that show cell or cancer specificity.
+    + spec_object: name of cell line or cancer type associated to the specific CE.
+    + specificity: types of cell(cancer) specificity: active, inactive or non-specific.
+    + object_type: level of specificity: cell-specific or cancer-specific.
+    
+  1. se_bed: SE BED file where SEs were merged across NCI-60 cell lines.
+  1. ce_bed: CE BED file where CEs were merged across NCI-60 cell lines.
+  1. cell_cancer_meta: metadata for cell lines and cancers of NCI-60 cell lines.
+  1. ce_signal: normalized H3K27Ac ChIP-seq coverage for all CEs.
   1. ce_mixture_model_cell: mixture group code of all CEs (low signal group: 0; high signal group: 1).
-  1. gene_promotor: gene promotor regions based on hg38 used for gene query.
+  1. gene_promotor: gene promotor regions based on hg38 to facilitate gene query.
   
 
 # Query with _cSEAdb_
 
-In this section, we extract specificity information of SE and CE with search_db function using different query types.
+In this section, we demo different types of queries to zoom into specific SEs.
 
 ### *Query _cSEAdb_ with SE regions*
 
+Query through a specified genomic coordinate or a bed-file-specified region to find SEs.
+
 ```{r Query SE regions}
-# regions
 hits_1 <- search_db(c("chr1_100584859_100673000","chr1_112388326_112392055"),
                      query_type="se_region",se_db=cSEAdb)
 head(hits_1)
-
-# bed file
 bed_file <- system.file("extdata","se_query_example.bed",package="cSEAdb")
 hits_2 <- search_db(bed_file,query_type="se_bed",se_db=cSEAdb)
 
@@ -97,74 +105,81 @@ head(hits_2)
 
 ### *Query _cSEAdb_ with gene names*
 
+Query through gene names to find the neighbored SE regions .
+
 ```{r Query with gene names}
 hits_gene <- search_db(query=c("MYC","FOXA2"),
                         query_type="gene",se_db=cSEAdb)
 head(hits_gene)
 ```
 
-### *Query _cSEAdb_ with cell lines (only for the 60 cell line in this study)*
+### *Query _cSEAdb_ with cell lines (limited to the 60 cell lines in this study)*
+
+Query through cell line names to find the cell-sepcific SEs in the queried cell lines.
 
 ```{r Query with cell lines}
-# cell line names used in this study
+# cell line names included in this study
 cell_name <- unique(cSEAdb$cell_cancer_meta$Cell_line)
 head(cell_name)
-
-# search cSEAdb with cell name
+# search cSEAdb with cell names
 hits_cell <- search_db(cell_name[c(1,2)],
                        query_type="cell",se_db=cSEAdb)
 head(hits_cell)
 ```
 
-### *Query _cSEAdb_ with cancers (only for the 28 cancer types in this study)*
+### *Query _cSEAdb_ with cancer types (limited to the 28 cancer types in this study)*
 
-```{r Query with cancer names}
-# cancer names used in this study
+Query through cancer type names to find the cancer-sepcific SEs in the queried cancers.
+
+```{r Query with cancer types}
+# cancer types included in this study
 cancer_name <- unique(cSEAdb$cell_cancer_meta$Cell_line)
 head(cancer_name)
-
-# search cSEAdb with cancer names
+# search cSEAdb with cancer types
 hits_cancer <- search_db(query=cancer_name[c(1,2)],
                        query_type="cancer",cSEAdb)
 head(hits_cancer)
 ```
 
-# Generate signal track plot
+# Generate signal tracks for the queried SE regions
 
-This section demostrates how to generate track plots with a genomic regions.
+In this section, we demo how to create ChIP-seq H3K27Ac data object in order to visualze SE signals.
+
+First, the normalized bigwig files shoule be downloaded to local computer from our pre-documented repository.
 
 ```{r download bigwig files of 60 cell lines}
-# Download the normalized bigwig file of 60 cell lines
-# Download link are located in data/bw_all_plinks.txt file
+# Download the normalized bigwig files of NCI-60 cell lines
+# Download links are located in data/bw_all_plinks.txt file
 bw_links <- system.file("extdata","bw_all_plinks.txt",package="cSEAdb")
 bw_download_link <- read.table(bw_links,sep="\t",header=F)
 head(bw_download_link)
-
-# Create a bigwig list with the path of bigwig files
-# Here is a example of path list of downloaded bigwig files
+# Create a bigwig list using the path of bigwig files
+# Here is an example of path list for downloaded bigwig files
 bw_dir <- system.file("extdata","example_bw",package="cSEAdb")
 bw_path  <- list.files(bw_dir,full.names = T)
 head(bw_path)
 ```
 
-Once we have the bigwig path, we can create a Grange object with region like to plot.
+Then, a data object (GRanges) can be generated to store the H3K27Ac signal tracks for the queried SE regions.
+Although, only cancers/cells in the NCI-60 are allowed to be queried above, visulization of signals of the queried SEs in
+other cell lines is allowed here. See below on how to add other bigwig files duing the data object preparation.
 
 ```{r create bw_gr object}
-# Define a plot region
+# Select a plot region
 plot_region <- "chr1:1156819-1178981"
 
 # Extract cSEAdb information
 search_db_table <- search_db(plot_region,
                              query_type="se_region",se_db=cSEAdb)
 
-# You can add your own bigwig files
+# User can also add other H3K27Ac bigwig files beyond the NCI-60 cell panel
 usr_bigwig <- system.file("extdata","example_signal.bw",package="cSEAdb")
 
-# Create bigwig gr object with function create_bw_gr
+# Create bigwig GRange object for downstream plotting
 bw_gr <- create_bw_gr(plot_region,c(bw_path,usr_bigwig),se_spec_table=search_db_table)
 ```
 
-After generate the bigwig Granges, we can create gnomic tracks. We can chose any cell lines provided in this database. Here we only generate the cells which have specificity in this region. We also add some extra cells (A549, MCF7) and user's own samples. 
+Next, users can filter or specify which cell lines to be plotted. For demo purpose, we only look into cell lines that the queried SEs show specificity (*specific*). We also manually add other cell lines (A549, MCF7) and a customized sample. 
 
 ```{r create tracks}
 
@@ -182,22 +197,24 @@ plot_object <- create_gviz_tracks(bw_gr_list=bw_gr$bw_gr,
 names(plot_object)
 ```
 
-The plot object includes the following files:
+The data object includes the following 7 types of information to be plotted.
+Users can also customize which tracks to be plotted using Gviz package.
 
   1. htrack: main bigwig tracks (must include).
   1. atrack_ce: CE regions.
   1. atrack_se: SE regions.
   1. atrack_query: query regions.
-  1. gtrack: genomic track with gene information
-  1. plot_region: regions to plot.
-  1. axistrack: genome axis track indicate locations.
+  1. gtrack: genomic tracks with gene information
+  1. plot_region: regions to be plotted.
+  1. axistrack: genome axis track indicating locations.
   
-Then users can customize which track to plot using Gviz package.
 
 ## Plot all tracks
 
+Example to visualize with all types of information in the data object.
+
 ```{r track1, fig.height=20, fig.width=15}
-# with the plot object, users can customize which track to plot using gviz package
+# with the plotting object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
              plot_object$atrack_ce,
              plot_object$atrack_se,
@@ -211,8 +228,10 @@ plotTracks(c(plot_object$htrack,
 
 ## Without annotation tracks
 
+Example	to visualize with the selected types of information in the data object.
+
 ```{r track2, fig.height=20, fig.width=15}
-# with the plot object, users can customize which track to plot using gviz package
+# with the plotting object, users can customize which track to plot using gviz package
 plotTracks(c(plot_object$htrack,
              plot_object$atrack_ce,
              plot_object$atrack_se),
@@ -223,7 +242,7 @@ plotTracks(c(plot_object$htrack,
 
 # Generate chromosome maps
 
-This section demonstrates how to generate chromosome maps with the information extracted from _cSEAdb_. _cSEAdb_ includes cell and cancer RDS object for chromosome plots. Here we use A549 as an example.
+In this section, we demo how to generate chromosome maps of specific SEs/CEs using data from A549 cell line.
 
 ```{r chromosome maps}
 # load tools
