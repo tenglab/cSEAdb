@@ -105,7 +105,7 @@ head(hits_2)
 
 ### *Query _cSEAdb_ with gene names*
 
-Query through gene names to find the neighbored SE regions .
+Query through gene names to find the neighbored SE regions within 1Mb region centered by the queried gene promoters.
 
 ```{r Query with gene names}
 hits_gene <- search_db(query=c("MYC","FOXA2"),
