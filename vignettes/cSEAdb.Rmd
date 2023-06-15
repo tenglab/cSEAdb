@@ -1,4 +1,4 @@
-A---
+---
 title: "_cSEAdb_ User's Guide"
 author: |
   | Xiang Liu <xiang.liu@moffitt.org>
@@ -145,7 +145,7 @@ head(hits_cancer)
 
 In this section, we demo how to create ChIP-seq H3K27Ac data object in order to visualze SE signals.
 
-First, the normalized bigwig files shoule be downloaded to local computer from our pre-documented repository.
+First, the normalized bigwig files should be downloaded to local computer from our pre-documented repository.
 
 ```{r download bigwig files of 60 cell lines}
 # Download the normalized bigwig files of NCI-60 cell lines
@@ -161,8 +161,9 @@ head(bw_path)
 ```
 
 Then, a data object (GRanges) can be generated to store the H3K27Ac signal tracks for the queried SE regions.
-Although, only cancers/cells in the NCI-60 are allowed to be queried above, visulization of signals of the queried SEs in
-other cell lines is allowed here. See below on how to add other bigwig files duing the data object preparation.
+Although, only cancers/cells in the NCI-60 are allowed to be queried above, visulization of signals of the
+queried SEs in other cell lines is allowed here. See below on how to add other bigwig files duing the data
+object preparation.
 
 ```{r create bw_gr object}
 # Select a plot region
@@ -179,7 +180,9 @@ usr_bigwig <- system.file("extdata","example_signal.bw",package="cSEAdb")
 bw_gr <- create_bw_gr(plot_region,c(bw_path,usr_bigwig),se_spec_table=search_db_table)
 ```
 
-Next, users can filter or specify which cell lines to be plotted. For demo purpose, we only look into cell lines that the queried SEs show specificity (*specific*). We also manually add other cell lines (A549, MCF7) and a customized sample. 
+Next, users can filter or specify which cell lines to be plotted. For demo purpose, we only look
+into cell lines that the queried SEs show specificity (*specific*). We also manually add other
+cell lines (A549, MCF7) and a customized sample. 
 
 ```{r create tracks}
 
@@ -198,7 +201,7 @@ names(plot_object)
 ```
 
 The data object includes the following 7 types of information to be plotted.
-Users can also customize which tracks to be plotted using Gviz package.
+Users can also customize which information to be included  using Gviz package.
 
   1. htrack: main bigwig tracks (must include).
   1. atrack_ce: CE regions.
