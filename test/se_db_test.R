@@ -21,7 +21,7 @@ library(cSEAdb)
 #-----------------------------------
 
 # test SE_region
-test_se_r <- search_db(c("chr1_100584859_100673000","chr1_112388326_112392055"),
+test_se_r <- search_db(c("chr1_112388326_112392055"),
                      query_type="se_region",cSEAdb)
 
 
@@ -69,10 +69,10 @@ bw_gr <- create_bw_gr(plot_region,c(bigWigs$V1),se_spec_table=search_db_table)
 
 
 plot_out_2 <- create_gviz_tracks(bw_gr_list=bw_gr$bw_gr,
-                               cell="specific,A549,MCF7",
+                               cell="specific",
                                se_spec_table=search_db_table,
-                               plot_region=plot_region)
-                               #txdb=TxDb.Hsapiens.UCSC.hg38.knownGene)
+                               plot_region=plot_region,
+                               txdb=TxDb.Hsapiens.UCSC.hg38.knownGene)
 
 
 

@@ -18,14 +18,7 @@ available in this database can be found in the description file)}
 \item{se_db}{the cSEAdb object loaded from the package}
 }
 \value{
-if query_type is "se_region" or "se_bed":
 A list of SE regions and there cell and cancer specificity will return.
-
-if query_type is "cancer" or "cell":
-A list of SE regions which only specific in "cancer" or "cell" will return.
-
-if query_type is "tissue":
-A list of SE regions which specific in "cancer" and "cell" within the tissue will return.
 }
 \description{
 A function to return the overlapped SE regions with a SE query string or SE bed file
